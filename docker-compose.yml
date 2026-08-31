@@ -1,0 +1,18 @@
+services:
+  konkani-asr:
+    build: .
+    volumes:
+      - ./outputs:/workspace/outputs
+      - ./src:/workspace/src
+      - ./data:/workspace/data
+      - ./raw_data:/workspace/raw_data
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
+      - HF_DATASET_REPO=${HF_DATASET_REPO}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
